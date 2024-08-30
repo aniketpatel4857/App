@@ -40,4 +40,4 @@ process.on('uncaughtException',()=>{
     console.log("errorr")
 })
 
-app.listen(process.env.PORT || 3000);
+app.listen(3000);

@@ -1,8 +1,8 @@
 const mongoose= require("mongoose");
 
 
-mongoose.connect("mongodb://0.0.0.0:27017/khatabookn19").then(function(){
-    console.log("connected to database");
-})
+mongoose.connect("mongodb+srv://aniketpatel485772:aniket@cluster0.svxmrel.mongodb.net/khaatabookn19" ).then(()=>{
+    console.log("MongoDb Connected")
+});
 
 module.exports = mongoose.connection;
