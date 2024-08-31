@@ -1,56 +1,46 @@
 <%- include('./partials/header.ejs') %>
-    <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg mt-10">
-        <div
-            class="absolute copieddiv hidden top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-2 bg-blue-500 rounded-md">
-            <h3 class="text-blue-200 text-xl">
-                link copied
-            </h3>
-        </div>
-        <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold">Khaatabook</h1>
-            <div class="flex space-x-4">
-                 <% if(hisaab.encrypted) { %>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Encrypted</button>
-                    <% } else { %>
-                        <button class="bg-teal-600 text-white px-4 py-2 rounded">Available</button>
-               <% } %>
-                <button class="sharebtn text-gray-700 px-4 py-2 rounded flex items-center space-x-2">
-                    <span id="copyUrl">Share as a link</span>
-                </button>
-                <a href="/hisaab/delete/<%= hisaab._id %>" class="bg-red-500 text-white px-4 py-2 rounded">Delete</a>
-                <a href="/hisaab/edit/<%= hisaab._id %>" class="bg-yellow-400 text-white px-4 py-2 rounded">Edit</a>
-            </div>
-        </div>
-        <div class="text-gray-500 mb-4">Created on  <%= hisaab.createdAt.getDate() %>-<%=hisaab.createdAt.getMonth()+1%>-<%=hisaab.createdAt.getFullYear() %></div>
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-lg mt-10 relative shadow-lg">
+    <div class="text-gray-500 mb-6">Created on <%= hisaab.createdAt.getDate() %>-<%= hisaab.createdAt.getMonth()+1 %>-<%= hisaab.createdAt.getFullYear() %></div>
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800"><%= hisaab.title %></h2>
+    <p class="text-gray-700 mb-8 text-lg leading-relaxed"><%= hisaab.description %></p>
+    
+    <div class="absolute copieddiv hidden top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 py-3 bg-blue-500 text-white rounded-md shadow-lg">
+        <h3 class="text-sm font-semibold">Link copied</h3>
+    </div>
 
-            <h2 class="text-xl font-semibold mb-2"> <%= hisaab.title %> </h2>
-            <p class="text-gray-700"><%=  hisaab.description %></p>
-        </div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
+        <% if (hisaab.encrypted) { %>
+            <button class="bg-blue-600 text-white px-6 py-3 rounded text-sm w-full sm:w-auto shadow-md hover:bg-blue-700 transition-colors">Encrypted</button>
+        <% } else { %>
+            <button class="bg-teal-700 text-white px-6 py-3 rounded text-sm w-full sm:w-auto shadow-md hover:bg-teal-800 transition-colors">Available</button>
+        <% } %>
+        <button class="sharebtn bg-gray-200 text-gray-700 px-6 py-3 rounded text-sm flex items-center space-x-2 w-full sm:w-auto hover:bg-gray-300 transition-colors shadow-md">
+            <span id="copyUrl">Share as a link</span>
+        </button>
+    </div>
 
+    <div class="flex justify-end gap-4 mt-6">
+        <a href="/hisaab/edit/<%= hisaab._id %>" class="bg-yellow-500 text-white px-6 py-3 rounded text-sm hover:bg-yellow-600 transition-colors shadow-md">Edit</a>
+        <a href="/hisaab/delete/<%= hisaab._id %>" class="bg-red-600 text-white px-6 py-3 rounded text-sm hover:bg-red-700 transition-colors shadow-md">Delete</a>
+    </div>
+</div>
 
-    <script>
-        var timer;
-        const sharebtn = document.querySelector(".sharebtn");
-        sharebtn.addEventListener("click", function (e) {
-            clearTimeout(timer);
+<script>
+    var timer;
+    const sharebtn = document.querySelector(".sharebtn");
+    sharebtn.addEventListener("click", function (e) {
+        clearTimeout(timer);
 
-            document.querySelector(".copieddiv")
-                .classList.remove("hidden");
+        document.querySelector(".copieddiv").classList.remove("hidden");
 
-            timer = setTimeout(function () {
-                document.querySelector(".copieddiv")
-                    .classList.add("hidden");
-            }, 3000)
-        });
-        
+        timer = setTimeout(function () {
+            document.querySelector(".copieddiv").classList.add("hidden");
+        }, 3000);
+    });
 
-         document.querySelector("#copyUrl").addEventListener("click", function (e) {
-         navigator.clipboard.writeText(window.location.href);
-        })
-            
-            
-            
+    document.querySelector("#copyUrl").addEventListener("click", function (e) {
+        navigator.clipboard.writeText(window.location.href);
+    });
+</script>
 
-    </script>
-
-    <%- include('./partials/footer.ejs') %>
+<%- include('./partials/footer.ejs') %>
